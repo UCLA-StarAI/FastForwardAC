@@ -1,5 +1,5 @@
 # FastForwardAC
-A Python Program (in v.3.5) to output a feed-forward AC to find marginals
+A Python Program (v3.5) to output a feed-forward AC to find marginals
 
 ## Directories
 **src**: Python code to run the program
@@ -7,7 +7,7 @@ A Python Program (in v.3.5) to output a feed-forward AC to find marginals
 **ac**: Sample .ac files used for testing
 
 ## Running the Code
-The program was written in Python 3.x. To be safe, specify that you are running python3. 
+The program was written for Python 3.x. To be safe, specify that you are running python3. 
 
 You can run the program in this format: 
 > python3 (name of python program) (name of .ac file) 
