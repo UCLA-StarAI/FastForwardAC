@@ -62,7 +62,13 @@ class ACNode:
          self.index = i # line number in AC
 
 # Functions
-
+def isInt(arg):
+    try:
+        int(arg)
+        return True
+    except ValueError:
+        print("Not a valid integer ... \n\t ... Exiting ...")
+        return False
         
 # Check if file was passed by command line
 FILE_NAME = ''
@@ -76,8 +82,6 @@ else:
 
 print("File name:", FILE_NAME)
 #print("size:", FILE_SIZE)
-
-
 
 # Read the AC file
 AC_FILE = open(FILE_NAME, 'r')
@@ -158,8 +162,6 @@ for line in AC_FILE:
             circuit.append(multNode)
             index = index + 1
 
-    #print(index)
-
 # Close AC file
 AC_FILE.close()
 
@@ -167,7 +169,8 @@ outputVal = circuit[index].vr
 circuit[index].update_dr(1)
 
 print("output:", outputVal)
-print("output log", math.log10(outputVal))
+if outputVal != 0:
+    print("output log", math.log10(outputVal))
 
 ''' 
 Start cache-backpropagation
@@ -176,7 +179,13 @@ We will find the marginal for this index
 
 If user does not input a number, the program will return an error
 '''
-leafIndex = int(input("Find marginal of leaf node index: "))
+leafIndex = (input("\nFind marginal of leaf node index (q to exit): "))
+
+# Exit program if input is invalid
+if not isInt(leafIndex):
+    exit()
+
+leafIndex = int(leafIndex)
 counter = 0 # counts the line/node number in the ac
 isDone = False # breaks out of loop if goal node is reached
 outputAC = '' # Output string
@@ -209,14 +218,14 @@ for parent in reversedCircuit:
                 outputAC += '+ ' + parentLine + ' ' + childLine + '\n'
                 childNode.line = counter # Change the line to the add node
                 counter += 1
-                    
+
     elif parent.ntype == '*':
         pos = 1 # Keep track of node position in cache
-        
+
         parent.line = counter
         outputAC += 'n ' + str(parent.dr) + '\n'
         counter += 1
-        
+
         # Need to consider case where child has multiple parents
         for childIndex in parent.childList:
             childNode = circuit[childIndex]
@@ -253,22 +262,21 @@ for parent in reversedCircuit:
                     childLine = counter
                     outputAC += 'n ' + str(childNode.dr) + '\n'
                     counter += 1
-                
+
                 outputAC += '+ ' + str(multLine) + ' ' + str(childLine) + '\n'
                 childNode.line = counter
                 counter += 1
-            
-            
+
     # When goal node is reached, report the output
     if parent.nIndex == leafIndex:
-        #print('dr ' , parent.dr, ' line ', parent.line)
         outputAC += '+ ' + str(parent.line) + '\n'
+        break
 
 outputAC += 'EOF'
-
 print(outputAC)
 
 # Write to a test file
 f = open('out.ac', 'w')
+print("File written to out.ac")
 f.write(outputAC)
 f.close()
