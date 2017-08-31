@@ -1,5 +1,5 @@
 # FastForwardAC
-A Python Program (v3.5) to output a feed-forward AC to find marginals
+A Python Program (v3.5) to output a feed-forward AC to find marginal probabilities
 
 ## Directories
 **src**: Python code to run the program
