@@ -1,7 +1,7 @@
 # FastForwardAC
 A Python Program (in v.3.5) to output a feed-forward AC to find marginals
 
-## Contents
+## Directories
 **src**: Python code to run the program
 
 **ac**: Sample .ac files used for testing
