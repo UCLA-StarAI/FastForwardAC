@@ -72,7 +72,6 @@ def isInt(arg):
         
 # Check if file was passed by command line
 FILE_NAME = ''
-FILE_SIZE = 0
 if (len(sys.argv) < 2):
     FILE_NAME = input("Please input an AC file: ")
     # FILE_SIZE = input("Please input the AC size: ")
@@ -84,7 +83,7 @@ print("File name:", FILE_NAME)
 #print("size:", FILE_SIZE)
 
 # Read the AC file
-AC_FILE = open(FILE_NAME, 'r')
+AC_FILE = open(FILE_NAME, 'r') 
 for line in AC_FILE:
     #print(line)
     if line[0] == '(':
@@ -194,13 +193,15 @@ outputAC = '' # Output string
 reversedCircuit = list(circuit)
 reversedCircuit.reverse()
 
-outputAC += "(TBA)\n" # Placeholder
-
 for parent in reversedCircuit:
     if parent.ntype == '+':
-        parent.line = counter
-        outputAC += 'n ' + str(parent.dr) + '\n'
-        counter += 1
+
+        if parent.line == 0: # output parent dr if it is not in new circuit
+            parent.line = counter
+            counter += 1
+            outputAC += 'n ' + str(parent.dr) + '\n'
+            
+            
         for childIndex in parent.childList:
             childNode = circuit[childIndex]
 
@@ -222,10 +223,11 @@ for parent in reversedCircuit:
     elif parent.ntype == '*':
         pos = 1 # Keep track of node position in cache
 
-        parent.line = counter
-        outputAC += 'n ' + str(parent.dr) + '\n'
-        counter += 1
-
+        if parent.line == 0: # output parent dr if it is not in new circuit
+            outputAC += 'n ' + str(parent.dr) + '\n'
+            parent.line = counter
+            counter += 1
+            
         # Need to consider case where child has multiple parents
         for childIndex in parent.childList:
             childNode = circuit[childIndex]
@@ -251,7 +253,7 @@ for parent in reversedCircuit:
 
             # Insert multiplication node
             multLine = counter
-            outputAC += '* ' + prLLine + ' ' + prRLine + ' ' + parentLine + '\n'
+            outputAC += '* ' + parentLine + ' ' + prLLine + ' ' + prRLine + '\n'
             counter += 1
 
             # Insert add node if child's dr was non-zero
@@ -273,6 +275,7 @@ for parent in reversedCircuit:
         break
 
 outputAC += 'EOF'
+outputAC = '(Placeholder)\n' + outputAC
 print(outputAC)
 
 # Write to a test file
