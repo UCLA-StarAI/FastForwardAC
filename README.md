@@ -13,7 +13,7 @@ A Python Program (v3.5) to output a feed-forward AC to find marginal probabiliti
 
 **forward_c.py**: Outputs a C file to calculate marginals from a feed-forward AC
 
-**ac_to_c_code.py (Prototype)**: (Older & Slower code) Outputs C code to calculate marginars from an AC
+**ac_to_c_code.py (Prototype)**: (Older & Slower code) Outputs C code to calculate marginals from an AC
 
 ## Running the Code
 The program was written for Python 3.x. To be safe, specify that you are running python3. 
