@@ -6,6 +6,13 @@ A Python Program (v3.5) to output a feed-forward AC to find marginal probabiliti
 
 **ac**: Sample .ac files used for testing
 
+**test_bench**: Contains tests used to compare performance
+
+## Source code
+**ac_to_ac.py**: Outputs a feed-forward AC from an AC
+**forward_c.py**: Outputs a C file to calculate marginals from a feed-forward AC
+**ac_to_c_code.py**: (Slower code) Outputs C code to calculate marginars from an AC
+
 ## Running the Code
 The program was written for Python 3.x. To be safe, specify that you are running python3. 
 
@@ -21,3 +28,6 @@ As the program runs, you will be prompted to enter a node index. This correspond
 > Find marginal of leaf node index: 0 
 
 The program will generate an .ac file that calculates the partial derivative of node index 0 (first node in file). 
+
+To calculate the value of this partial derivative, run the forward_c.py file
+> python3 forward_c.py out.ac
